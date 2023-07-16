@@ -1,12 +1,14 @@
 package com.bank;
 
-import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Accounts {
     private String name;
     private String accno;
     private double balance;
     private String phnNum;
+    HashMap<Double, String> map=new HashMap<Double, String>();
 
 
     public Accounts(String name,String accno,double balance,String phnNum){
@@ -15,27 +17,36 @@ public class Accounts {
         this.balance=balance;
         this.phnNum=phnNum;
     }
+
     public void depositMoney(double money){
         this.balance+=money;
+        map.put(money," Amount Deposited..");
         System.out.println("Money deposited Successfully...");
     }
     public void withDrawMoney(double amt){
         if(this.balance>=amt){
             this.balance-=amt;
-            System.out.println("Withdrawal money successfully take your cash"+ amt);
+            map.put(amt," amount is Withdrawn..");
+            System.out.println("Withdrawal money successfully take your cash "+ amt);
 
         }else
-            System.out.println("Your account does not have this amount");
+            System.out.println("Insufficient Balance...");
     }
     public void checkBalance(){
         System.out.println("Available balance is :"+balance);
+    }
+    public void viewMiniStatement(){
+        for(Map.Entry<Double,String> em:map.entrySet()){
+            System.out.println(em.getKey()+""+em.getValue());
+        }
+
     }
     public void menu(){
         System.out.println("Welcome "+name);
         System.out.println();
         System.out.println("HERE IS your menu ");
-        System.out.println("1. CheckaccBalance"+"\n"+"2 .DepositMoney"+"\n"+"3. Withdraw money"
-                +"\n"+"4. Exit");
+        System.out.println("1. Check accBalance"+"\n"+"2 .DepositMoney"+"\n"+"3. Withdraw money"
+                +"\n"+"4.View Mini Statement\n5. Exit");
         System.out.println("===========================");
 
     }
